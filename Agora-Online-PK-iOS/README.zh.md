@@ -39,7 +39,7 @@ static let AppId: String = "Your App ID"
 ```
 然后在 [Agora.io SDK](https://www.agora.io/cn/download/) 下载 视频通话 + 直播 SDK，解压后将其中的 libs/AgoraRtcEngineKit.framework 复制到项目文件夹下。
 
-获取 AgoraMessageTubeKit.framework 文件，放入项目文件夹下。AgoraMessageTubeKit.framework是为本项目封装的信令库，你可以去以下地址下载 [AgoraMessageTubeKit.framework]()
+获取 AgoraMessageTubeKit.framework 文件，放入项目文件夹下。AgoraMessageTubeKit.framework是为本项目封装的信令库，你可以去以下地址下载 [AgoraMessageTubeKit.framework](https://github.com/AgoraIO/ARD-Agora-Online-PK/files/2370417/AgoraMessageTubeKit.zip)
 
 获取 [ijkplayer](https://github.com/Bilibili/ijkplayer)， 根据文档生成 IJKMediaFramework.framework，放入项目文件夹下。你也可以去以下地址下载我们编译好的版本 [IJKMediaFramework.framework]() （该版本只用于项目调试）
 
