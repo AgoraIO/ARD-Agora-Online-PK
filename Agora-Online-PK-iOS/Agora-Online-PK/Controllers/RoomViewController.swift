@@ -14,12 +14,24 @@ let pkViewWidth = ScreenWidth / 2.0
 let pkViewHeight = ScreenWidth / 9.0 * 8
 
 struct Message {
+    // struct for message
     let name: String!
     let content: NSMutableAttributedString!
 }
 
 class RoomViewController: UIViewController {
-
+    /**-----------------------------------------------------------------------------
+     * This view has two mode: Live broadcast && audience
+     *
+     * Live broadcast mode:
+     *      You will upload the stream to Agora and CDN you chose
+     *      You can presse PK button to start PK with another broadcast
+     *
+     * Audience mode:
+     *      In this mode you will subscribe a RTMP stream use rjkplayer
+     *
+     * -----------------------------------------------------------------------------
+     */
     @IBOutlet weak var leaveButton: UIButton!
     @IBOutlet weak var chatTableView: UITableView!
     @IBOutlet weak var pkButton: UIButton!
@@ -38,12 +50,13 @@ class RoomViewController: UIViewController {
     
     
     var agoraKit: AgoraRtcEngineKit!
-    var myPushUrl: String?
-    var myPullUrl: String?
+    var myPushUrl: String?   // url to push rtmp stream
+    var myPullUrl: String?   // url to pull rtmp stream
     
     var clientRole = AgoraClientRole.audience
     
     lazy var mediaRoomName: String = {
+        // channel name to join Agora media room
         return UserDefaults.standard.object(forKey: "myAccount") as! String
     }()
     
@@ -53,9 +66,10 @@ class RoomViewController: UIViewController {
     var localSession: VideoSession?
     var remoteSession: VideoSession?
     
-    var pkRoomeName: String?
+    var pkRoomeName: String?  // channel name for the PK room
     var count: Int = 0
     var isPk = false {
+        // the status for PK
         didSet {
             if isPk != oldValue {
                 updateViewWithStatus(isPk: isPk)
@@ -64,6 +78,7 @@ class RoomViewController: UIViewController {
     }
     
     var isBroadcasting = false {
+        // the status for the audience mode to identify if there is a broadcast stream
         didSet {
             if isBroadcasting == oldValue {
                 return
@@ -74,6 +89,7 @@ class RoomViewController: UIViewController {
     }
     
     var popViewIsShow = false {
+        // status to identify if there is a pop view be showed
         didSet {
             if popViewIsShow {
                 UIView.animate(withDuration: 0.2) {
@@ -85,22 +101,25 @@ class RoomViewController: UIViewController {
     }
     
     lazy var agoraSignal: AgoraMessageTubeKit = {
+        // agora signal instance
         let signalKit = AgoraMessageTubeKit.sharedMessageTubeKit(withAppId: KeyCenter.AppId, workMode: .joinChannelOnly)
         signalKit?.delegate = self
         return signalKit!
     }()
     
-    var signalRoomName: String?
+    var signalRoomName: String?    // channel name to join agora signal channel
     
     lazy var signalAccount: String = {
+        // account for agora aignal system
         return UserDefaults.standard.object(forKey: "myAccount") as! String
     }()
     
-    var messageList = [Message]()
+    var messageList = [Message]()  // channel chat message list
     
-    var ijkPlayer: IJKFFMoviePlayerController?
+    var ijkPlayer: IJKFFMoviePlayerController?  // ijkplayer
     
     var streamSize: CGSize? {
+        // size for RTMP stream, we use this size to observe the stream status in audience mode
         didSet {
             DispatchQueue.main.async {
                 UIView.animate(withDuration: 0.2) {
@@ -151,6 +170,7 @@ class RoomViewController: UIViewController {
     }
     
     func setView() {
+        // init the view
         chatTableView.rowHeight = UITableViewAutomaticDimension
         chatTableView.estimatedRowHeight = 20
         
@@ -192,6 +212,7 @@ class RoomViewController: UIViewController {
     }
     
     func updateViewWithStatus(isPk: Bool) {
+        // update view with status
         if isBroadcaster {
             self.pkButton.isHidden = isPk
             self.endPkButton.isHidden = !isPk
@@ -259,6 +280,8 @@ class RoomViewController: UIViewController {
 // MARK: - AgoraMedia
 private extension RoomViewController {
     func loadAgoraKit(withIsPk status: Bool) {
+        // load agora media kit and join media channel with PK status, only the broadcaster will join agora
+        // the agora media channel, the audience just join agora signal channel for channel chat
         agoraKit = AgoraRtcEngineKit.sharedEngine(withAppId: KeyCenter.AppId, delegate: self)
         agoraKit.setChannelProfile(.liveBroadcasting)
         agoraKit.setClientRole(self.clientRole)
@@ -293,8 +316,11 @@ private extension RoomViewController {
     }
     
     func updateLiveTranscoding(withMenber menber: Int) {
+        // LiveTranscoding update, the LiveTranscoding is used to set the CDN stream layout in Agora server
+        // more details please refer to the document
         switch menber {
         case 1:
+            // the LiveTranscoding for one person
             let localUser = AgoraLiveTranscodingUser()
             localUser.uid = (self.localSession?.uid)!
             localUser.rect = CGRect(x: 0, y: 0, width: 360, height: 640)
@@ -311,6 +337,7 @@ private extension RoomViewController {
             
             agoraKit.setLiveTranscoding(liveTranscoding)
         case 2:
+            // the LiveTranscoding for two persons in PK mode
             var uses = [AgoraLiveTranscodingUser]()
             let localUser = AgoraLiveTranscodingUser()
             localUser.uid = (self.localSession?.uid)!
@@ -342,6 +369,7 @@ private extension RoomViewController {
     }
     
     func leaveAgoraChannel() {
+        // leave agora media channel
         if let myPushUrl = self.myPushUrl, isBroadcaster {
             agoraKit.removePublishStreamUrl(myPushUrl)
         }
@@ -391,11 +419,13 @@ extension RoomViewController: AgoraRtcEngineDelegate {
             return
         }
         if isPk {
+            // if in PK mode, the broadcaster will first leave the PK room, then go back his own room
             self.isPk = false
             self.pkRoomeName = nil
             self.remoteSession?.hostingView.removeFromSuperview()
             loadAgoraKit(withIsPk: false)
         } else {
+            // if it's not in PK mode, the broadcaster will first leave his owm roonm, then join the PK room
             self.isPk = true
             loadAgoraKit(withIsPk: true)
         }
@@ -403,8 +433,10 @@ extension RoomViewController: AgoraRtcEngineDelegate {
 }
 
 // MARK: IJKPlayer
+// about ijkplayer please refer to the ijkplayer document
 private extension RoomViewController {
     func loadIjkPlayer() {
+        // load ijkplayer in audience mode to pull a RTMP stream
         setIdleTimerActive(true)
         
         self.myPullUrl = pullUrl + self.signalRoomName!
@@ -418,6 +450,7 @@ private extension RoomViewController {
 
         ijkPlayer?.prepareToPlay()
         
+        // the notification to observe the RTMP stream
         NotificationCenter.default.addObserver(self, selector: #selector(mediaPlayerPlaybackStateChange), name: NSNotification.Name.IJKMPMoviePlayerLoadStateDidChange, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(mediaNaturalSizeAvailable), name: NSNotification.Name.IJKMPMovieNaturalSizeAvailable, object: nil)
@@ -437,6 +470,7 @@ private extension RoomViewController {
     }
     
     @objc func mediaNaturalSizeAvailable(notify: NSNotification) {
+        // use the stream size to check if the broadcaster is in PK mode or not
         guard let player = (notify as NSNotification).object as? IJKFFMoviePlayerController else {
             return
         }
@@ -460,6 +494,7 @@ private extension RoomViewController {
     
     
     func releaseIjkPlyer() {
+        // release the ijlplayer
         self.streamSize = nil
         self.ijkPlayer?.view.removeFromSuperview()
         self.ijkPlayer?.shutdown()
@@ -468,12 +503,16 @@ private extension RoomViewController {
 }
 
 // MARK: - AgoraSignal
+// In this app signal system just used to achieve channel chat, we did use signal system to achieve PK logic
+// so if you are just interested in the achieve of PK, you can ignore the following about signal
 private extension RoomViewController {
     func loadAgoraSignal() {
+        // load and join agora signal channel
         agoraSignal.joinChannel(withChannelId: signalRoomName!, account: signalAccount)
     }
     
     func leaveAgoraSignalChannel() {
+        // leave agora channel
         agoraSignal.leaveChannel()
     }
 }
@@ -726,6 +765,7 @@ extension RoomViewController: PopViewDelegate {
 
 private extension RoomViewController {
     func addKeyboardObserver() {
+        // Add Keyboard Observer
         NotificationCenter.default.addObserver(forName: NSNotification.Name.UIKeyboardWillShow, object: nil, queue: nil) { [weak self] notify in
             guard let strongSelf = self, let userInfo = (notify as NSNotification).userInfo,
                 let keyBoardBoundsValue = userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue,

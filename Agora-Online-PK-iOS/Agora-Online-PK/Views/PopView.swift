@@ -15,6 +15,7 @@ import UIKit
 }
 
 class PopView: UIView {
+    // this is a custom tool for pop input view
     @IBOutlet weak var inputTextField: UITextField!
     @IBOutlet weak var popViewButton: UIButton!
     

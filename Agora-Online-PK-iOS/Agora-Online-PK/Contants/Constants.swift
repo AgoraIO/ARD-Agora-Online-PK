@@ -8,9 +8,9 @@
 
 import UIKit
 
-/// 屏幕的宽
+/// Screen Width
 let ScreenWidth = UIScreen.main.bounds.size.width
-/// 屏幕的高
+/// Screen Height
 let ScreenHeight = UIScreen.main.bounds.size.height
 
 /// iphone4s
@@ -30,6 +30,8 @@ let backgroundLists = [#imageLiteral(resourceName: "background_01"),#imageLitera
 
 let userNameList = ["安迪爱包子", "Eren Jäger", "Mikasa Ackerman", "Armin Arlert", "Erwin Smith", "Rival Ackerman", "包子", "安迪"]
 
+/// RTMP Push URL
 let pushUrl = "rtmp://vid-218.push.chinanetcenter.broadcastapp.agora.io/live/"
 
+/// RTMP Pull URL
 let pullUrl = "rtmp://vid-218.pull.chinanetcenter.broadcastapp.agora.io/live/"

@@ -10,8 +10,21 @@ import UIKit
 import AgoraRtcEngineKit
 
 class MainViewController: UIViewController {
-    
-    var subscribeAccount: String?
+    /**-----------------------------------------------------------------------------
+     * In this view you can chose the mode to join the room
+     *
+     * There are two button in the view, staet broadcast / watch broadcast
+     *
+     * Start broadcast:
+     *      when start broadcast button pressed, you will join the room directly as a broadcast
+     *
+     * Watch broadcast:
+     *      When watch broadcast button pressed, a view will pop out, then you need to enter the account which
+     *      you want to watch, then you can join the broadcast's room as an audience, the account you entered
+     *      will be used to identify the signal channel name and the RTMP Pull URL
+     * -----------------------------------------------------------------------------
+     */
+    var subscribeAccount: String?     // accout you want to subscribe
 
     override var prefersStatusBarHidden: Bool {
         return true

@@ -10,6 +10,7 @@ import UIKit
 import AgoraRtcEngineKit
 
 class VideoSession: NSObject {
+    // this is a custom object for agora video view
     var uid: UInt = 0
     var hostingView: UIView!
     var canvas: AgoraRtcVideoCanvas!

@@ -10,6 +10,16 @@ import UIKit
 
 class LoginViewController: UIViewController {
 
+    /**-----------------------------------------------------------------------------
+     * This view is uesd to set the account
+     *
+     * In this app we use the accout to identify
+     *      - Agora media channel name
+     *      - Agora signal account
+     *      - Agora signal channel name
+     *      - Agora RTMP Push URL (Constants.pushUrl + account)
+     * -----------------------------------------------------------------------------
+     */
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var accountTextField: UITextField!
     
@@ -57,6 +67,7 @@ class LoginViewController: UIViewController {
 
 private extension LoginViewController {
     func addKeyboardObserver() {
+        // Add Keyboard Observer
         NotificationCenter.default.addObserver(forName: NSNotification.Name.UIKeyboardWillShow, object: nil, queue: nil) { [weak self] notify in
             guard let strongSelf = self, let userInfo = (notify as NSNotification).userInfo,
                 let keyBoardBoundsValue = userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue,
