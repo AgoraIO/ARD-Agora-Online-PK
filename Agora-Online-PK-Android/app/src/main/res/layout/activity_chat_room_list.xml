@@ -5,12 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--<RecycleView-->
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_chat_room_list_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
     <LinearLayout
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
