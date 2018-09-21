@@ -1,21 +1,15 @@
 package io.agora.pk;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -25,15 +19,12 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
 import io.agora.live.LiveTranscoding;
 import io.agora.pk.engine.IMediaEngineHandler;
 import io.agora.pk.engine.ISignalEngineHandler;
-import io.agora.pk.ui.CRMItemDecor;
-import io.agora.pk.ui.CRMRecycleAdapter;
 import io.agora.pk.utils.MessageUtils;
 import io.agora.pk.utils.PKConstants;
 import io.agora.pk.utils.StringUtils;
@@ -59,14 +50,8 @@ public class ChatRoomActivity extends BaseActivity implements IMediaEngineHandle
 
     private Button mBtnExitPk;
 
-    private RecyclerView mMessageView;
-    private EditText mEtMessage;
-    private CRMRecycleAdapter mCrmAdapter;
-
     private boolean isPKnow = false;
     private boolean isBroadcaster = false;
-
-    private List<String> mMessageDataSet = new ArrayList<>();
 
     private int localUid = 0;
     private List<Integer> mUserList = new ArrayList<>();
@@ -95,28 +80,6 @@ public class ChatRoomActivity extends BaseActivity implements IMediaEngineHandle
         mFLPKMidBoard = findViewById(R.id.fl_chat_room_main_pk_board);
         mTvStartPk = findViewById(R.id.et_chat_room_main_start_pk);
         mBtnExitPk = findViewById(R.id.btn_main_pk_exit_pk);
-
-        mMessageView = findViewById(R.id.rv_chat_room_main_message);
-        mMessageView.setHasFixedSize(true);
-        mCrmAdapter = new CRMRecycleAdapter(new WeakReference<Context>(this), mMessageDataSet);
-        mMessageView.setAdapter(mCrmAdapter);
-        mMessageView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        mMessageView.addItemDecoration(new CRMItemDecor());
-        mEtMessage = findViewById(R.id.et_chat_room_main_msg_input);
-        mEtMessage.setOnEditorActionListener(new EditText.OnEditorActionListener() {
-
-            @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                if (i == EditorInfo.IME_ACTION_SEND) {
-                    if (!StringUtils.validate(mEtMessage.getText().toString()))
-                        return true;
-
-                    workThread().sendChannelMessage(MessageUtils.switchToChatJsonMsg(mEtMessage.getText().toString()));
-                    mEtMessage.setText("");
-                }
-                return false;
-            }
-        });
 
        initEngine();
     }
@@ -244,25 +207,6 @@ public class ChatRoomActivity extends BaseActivity implements IMediaEngineHandle
         mFLPKViewRight.setVisibility(View.INVISIBLE);
         mFLPKViewLeft.setVisibility(View.INVISIBLE);
         mBtnExitPk.setVisibility(View.INVISIBLE);
-    }
-
-    public void sendChatMessage(final String message) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mMessageDataSet.add(message);
-
-                if (mMessageDataSet.size() > 14) {// max value is 15
-                    int len = mMessageDataSet.size() - 15;
-                    for (int i = 0; i < len; i++) {
-                        mMessageDataSet.remove(i);
-                    }
-                }
-
-                mCrmAdapter.upDateDataSet(mMessageDataSet);
-                mMessageView.smoothScrollToPosition(mCrmAdapter.getItemCount() - 1);
-            }
-        });
     }
 
     public void setLocalPreviewView(int uid) {
@@ -505,7 +449,6 @@ public class ChatRoomActivity extends BaseActivity implements IMediaEngineHandle
                 try {
                     new JSONObject(msg);
                 } catch (JSONException e) {
-                    sendChatMessage(msg);
                     return;
                 }
 
@@ -531,9 +474,6 @@ public class ChatRoomActivity extends BaseActivity implements IMediaEngineHandle
                             setClientSingleView();
                         }
                     }
-                } else {
-                    if (msgs != null)
-                        sendChatMessage(msgs.toString());
                 }
             }
         });

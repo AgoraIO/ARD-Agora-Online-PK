@@ -122,29 +122,4 @@
         android:src="@drawable/chat_room_main_like"
         android:scaleType="centerInside"/>
 
-    <EditText
-        android:id="@+id/et_chat_room_main_msg_input"
-        android:layout_gravity="bottom"
-        android:gravity="left|center_vertical"
-        android:background="@drawable/chat_room_et_style"
-        android:paddingLeft="9dp"
-        android:layout_margin="12dp"
-        android:textSize="12dp"
-        android:singleLine="true"
-        android:textColorHint="@color/agora_white"
-        android:textColor="@color/agora_white"
-        android:hint="@string/chat_room_chat_say_something"
-        android:maxLines="1"
-        android:imeOptions="actionSend"
-        android:lines="1"
-        android:layout_width="match_parent"
-        android:layout_height="36dp" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_chat_room_main_message"
-        android:layout_gravity="bottom|left"
-        android:layout_marginBottom="64dp"
-        android:paddingLeft="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="120dp"/>
 </FrameLayout>
