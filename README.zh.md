@@ -59,7 +59,7 @@
 
 2. [推流到 CDN ](https://docs.agora.io/cn/2.3.1/product/Interactive%20Broadcast/Quickstart%20Guide/push_stream_android2.0?platform=Android)
 
-3. 调用 :ref:`removePublishStreamUrl_android`
+3. 调用 [removePublishStreamUrl](https://docs.agora.io/cn/2.4/product/Interactive%20Broadcast/API%20Reference/live_video_android?platform=Android) 删除推流地址 。
 
 ### ijkplayer 实现 (可选)
 
