@@ -49,10 +49,13 @@
 
 ### 集成 SDK
 
-详见 [设置开发环境](https://docs.agora.io/cn/2.3.1/product/Interactive%20Broadcast/Quickstart%20Guide/broadcast_audio_android?platform=Android)
+* Android, 详见 [设置开发环境](https://docs.agora.io/cn/2.3.1/product/Interactive%20Broadcast/Quickstart%20Guide/broadcast_audio_android?platform=Android)
+* iOS, 详见 [设置开发环境](https://docs.agora.io/cn/2.3.1/product/Interactive%20Broadcast/Quickstart%20Guide/broadcast_audio_ios?platform=iOS)
 
 
 ### 实现双主播普通模式和 PK 模式的切换
+
+**Android:**
 
 1. [实现视频直播](https://docs.agora.io/cn/2.3.1/product/Interactive%20Broadcast/Quickstart%20Guide/broadcast_video_android?platform=Android)
 
@@ -60,6 +63,10 @@
 
 3. 调用 [removePublishStreamUrl](https://docs.agora.io/cn/2.4/product/Interactive%20Broadcast/API%20Reference/live_video_android?platform=Android) 删除推流地址 。
 
+**iOS:**
+
+请将上述链接中的 Android 修改为 iOS。
+
 ### ijkplayer 实现 (可选)
 
-详见 [Android 开发 ijkplayer 框架的集成](https://github.com/Bilibili/ijkplayer) 。
+Android 平台可以参考 [Android 开发 ijkplayer 框架的集成](https://github.com/Bilibili/ijkplayer) 实现 ijkplayer 。
