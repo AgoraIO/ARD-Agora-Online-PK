@@ -50,7 +50,7 @@
 
 ### 集成 SDK
 
-详见: [设置开发环境](https://docs.agora.io/cn/2.3.1/product/Interactive%20Broadcast/Quickstart%20Guide/broadcast_audio_android?platform=Android)
+详见 [设置开发环境](https://docs.agora.io/cn/2.3.1/product/Interactive%20Broadcast/Quickstart%20Guide/broadcast_audio_android?platform=Android)
 
 
 ### 实现双主播普通模式和 PK 模式的切换
@@ -63,4 +63,4 @@
 
 ### ijkplayer 实现 (可选)
 
-详见：[Android 开发 ijkplayer 框架的集成](https://github.com/Bilibili/ijkplayer) 。
+详见 [Android 开发 ijkplayer 框架的集成](https://github.com/Bilibili/ijkplayer) 。
