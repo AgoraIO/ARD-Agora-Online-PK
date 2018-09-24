@@ -28,8 +28,7 @@
 
 下图为一起 PK 连麦场景的声网实现架构图：
 
-.. image:: competing_hosts.png
-   :scale: 60%
+![PK 连麦架构设计](Image/competing_hosts.png)
 
 声网已在 GitHub 提供了 Android 平台的 [实现代码](https://github.com/AgoraIO/ARD-Agora-Online-PK/tree/master/Agora-Online-PK-Android)。你也可以下载实现的 [apk 文件](https://pan.baidu.com/s/1T7Psw5KxNkSsYRPiTTB7Dg) 下载密码请联系声网客服 sales@agora.io 。
 
