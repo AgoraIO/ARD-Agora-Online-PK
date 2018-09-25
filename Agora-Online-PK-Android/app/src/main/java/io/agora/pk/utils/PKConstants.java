@@ -9,13 +9,8 @@ public class PKConstants {
     public final static int HANDLER_MESSAGE_LEAVE_CHANNEL = 0x100004;
     public final static int HANDLER_MESSAGE_CONIFG_ENGINE = 0x100005;
     public final static int HANDLER_MESSAGE_REMOTE_VIEW = 0x100006;
-    public final static int HANDLER_MESSAGE_JOIN_SIGNAL_CHANNEL = 0x100007;
-    public final static int HANDLER_MESSAGE_SEND_CHANNEL_MSG = 0x100008;
-    public final static int HANDLER_MESSAGE_SEND_P2P_MSG = 0x100009;
-    public final static int HANDLER_MESSAGE_LOGOUT_SIGNAL_CHANNEL = 0x100010;
 
     public final static String MEDIA_APP_ID = "0279f083791444fc835764dfedd614ce";
-    public final static String SIGNALING_APP_ID = "0279f083791444fc835764dfedd614ce";
 
     public final static String BUNDLE_ACCOUNT_NAME = "ACCOUNT_NAME";
     public final static String USER_CLIENT_ROLE = "USER_CLIENT_ROLE";

@@ -36,7 +36,7 @@ import io.agora.rtc.video.VideoCanvas;
 import tv.danmaku.ijk.media.player.IMediaPlayer;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
-public class ChatRoomActivity extends BaseActivity implements IMediaEngineHandler, ISignalEngineHandler,
+public class ChatRoomActivity extends BaseActivity implements IMediaEngineHandler,
         IMediaPlayer.OnPreparedListener, IMediaPlayer.OnCompletionListener{
     private int mClientRole;
 
@@ -86,19 +86,18 @@ public class ChatRoomActivity extends BaseActivity implements IMediaEngineHandle
 
     public void initEngine(){
         workThread().handler().addEventHandler(this);
-        workThread().signalHandler().addSignalCallback(this);
+
         workThread().configEngine(mClientRole, PKConstants.VIDEO_PROFILE);
         if (mClientRole == Constants.CLIENT_ROLE_BROADCASTER) {
             isBroadcaster = true;
             workThread().joinChannel(((PKApplication) getApplication()).getPkConfig().getBroadcasterAccount(), 0);
-            workThread().joinSignalChannel(((PKApplication) getApplication()).getPkConfig().getBroadcasterAccount(), ((PKApplication) getApplication()).getPkConfig().getBroadcasterAccount());
         } else if (mClientRole == Constants.CLIENT_ROLE_AUDIENCE) {
             isBroadcaster = false;
             mClientVideoView = new IjkVideoView(this);
             mClientVideoView.setOnCompletionListener(this);
             mClientVideoView.setOnPreparedListener(this);
 
-            workThread().joinSignalChannel(((PKApplication) getApplication()).getPkConfig().getBroadcasterAccount(), ((PKApplication) getApplication()).getPkConfig().getAudienceSignalAccount());
+            audienceCdnPlay();
         }
         changeViewToSingle();
         localView = RtcEngine.CreateRendererView(this);
@@ -121,7 +120,6 @@ public class ChatRoomActivity extends BaseActivity implements IMediaEngineHandle
         }
 
         mUserList.clear();
-        workThread().leaveSignalChannel();
         finish();
     }
 
@@ -146,6 +144,7 @@ public class ChatRoomActivity extends BaseActivity implements IMediaEngineHandle
         changeViewToSingle();
     }
 
+    //start pk, input a room channel to start pk
     public void onStartPKClicked(View v) {
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         View rootView = LayoutInflater.from(this).inflate(R.layout.pop_view_pk, null);
@@ -286,12 +285,12 @@ public class ChatRoomActivity extends BaseActivity implements IMediaEngineHandle
                 if (isPKnow) {
                     changeViewToPkBroadcaster();
                     setLocalPkLeftView(uid);
-                    workThread().sendChannelMessage(MessageUtils.switchToCtrlMsg(true));
                 } else {
                     changeViewToSingle();
                     setLocalPreviewView(uid);
-                    workThread().sendChannelMessage(MessageUtils.switchToCtrlMsg(false));
                 }
+
+                // start cdn rtmp stream push
                 setLiveTranscoding();
                 publishUrl();
             }
@@ -366,54 +365,8 @@ public class ChatRoomActivity extends BaseActivity implements IMediaEngineHandle
         }
     }
 
-    //--------------------------------------------------
-    @Override
-    public void onChannelJoined(final String channelID) {
-    }
-
-    @Override
-    public void onChannelJoinFailed(String channelID, int ecode) {
-    }
-
-    @Override
-    public void onChannelUserJoined(final String account, int uid) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                workThread().sendP2pMessage(MessageUtils.switchToCtrlMsg(isPKnow), account);
-            }
-        });
-    }
-
-    @Override
-    public void onMessageInstantReceive(String account, int uid, final String msg) {
-        handleMessage(msg);
-    }
-
-    @Override
-    public void onMessageChannelReceive(String channelID, String account, int uid, final String msg) {
-        handleMessage(msg);
-    }
-
-    @Override
-    public void onError(String name, int ecode, String desc) {
-    }
-
-    @Override
-    public void onLogout(final int ecode) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (ecode == 103) {
-                    onBackPressed();
-                    Toast.makeText(ChatRoomActivity.this, "重复登陆", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
-
-
     // --------------------------------ijk Player--------------------
+    // use ijkplayer (mClientVideoView) to play rtmp stream
     private void startPlay(String url) {
         IjkMediaPlayer.loadLibrariesOnce(null);
         IjkMediaPlayer.native_profileBegin("libijkplayer.so");
@@ -442,41 +395,24 @@ public class ChatRoomActivity extends BaseActivity implements IMediaEngineHandle
     }
 
     //---------------------------
-    public void handleMessage(final String msg) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    new JSONObject(msg);
-                } catch (JSONException e) {
-                    return;
-                }
+    // as audience, start play rtmp stream from CDN url
+    private void audienceCdnPlay() {
+        if (isBroadcaster) {
+            return;
+        }
 
-                Object msgs = MessageUtils.getMessage(msg);
-                if (msgs instanceof Boolean) {
-                    if (!isBroadcaster) {
-                        if (mClientVideoView != null){
-                            stopPlay();
+        if (mClientVideoView != null){
+            stopPlay();
+            startPlay(PKConstants.PUBLISH_PULL_URL + (((PKApplication) getApplication()).getPkConfig().getAudienceSignalAccount()));
+        }
 
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    startPlay(PKConstants.PUBLISH_PULL_URL + (((PKApplication) getApplication()).getPkConfig().getAudienceSignalAccount()));
-                                }
-                            }, 3000);
-                        }
-
-                        if ((boolean) msgs) {
-                            changeViewToPkAudience();
-                            setClientPKView();
-                        } else {
-                            changeViewToSingle();
-                            setClientSingleView();
-                        }
-                    }
-                }
-            }
-        });
+        if (isPKnow) {
+            changeViewToPkAudience();
+            setClientPKView();
+        } else {
+            changeViewToSingle();
+            setClientSingleView();
+        }
     }
 
     @Override

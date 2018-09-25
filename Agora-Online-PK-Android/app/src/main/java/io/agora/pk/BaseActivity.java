@@ -43,6 +43,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         return ((PKApplication) getApplication()).getWorkThread();
     }
 
+    // init LiveTranscoding structure, set width, height and other properties
     protected LiveTranscoding liveTranscoding(boolean isPkNow) {
         liveTranscoding = new LiveTranscoding();
         if (isPkNow) {
@@ -59,7 +60,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         return liveTranscoding;
     }
 
-
+    // set LieTrancoding property for each user
     protected ArrayList<LiveTranscoding.TranscodingUser> getTransCodingUser(int localUid, List<Integer> publishers, boolean isPkNow) {
 
         ArrayList<LiveTranscoding.TranscodingUser> users;

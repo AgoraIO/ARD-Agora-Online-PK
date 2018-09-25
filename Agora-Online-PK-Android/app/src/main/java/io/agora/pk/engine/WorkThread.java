@@ -9,7 +9,6 @@ import android.view.SurfaceView;
 
 import java.lang.ref.WeakReference;
 
-import io.agora.agoramessagetubekit.AgoraMessageTubeKit;
 import io.agora.pk.utils.PKConstants;
 import io.agora.pk.utils.StringUtils;
 import io.agora.rtc.Constants;
@@ -26,9 +25,6 @@ public class WorkThread extends Thread {
     private MediaEngineHandler mMediaEngineHandler;
 
     private boolean isThreadReady = false;
-
-    private AgoraMessageTubeKit mMessageTubeKit;
-    private SignalEngineHandler mSignalHandler;
 
     private static class WorkHandler extends Handler {
         private WorkThread workThread;
@@ -66,20 +62,6 @@ public class WorkThread extends Thread {
                     Object[] remoteData = (Object[]) msg.obj;
                     workThread.setmRemoteView((SurfaceView) remoteData[0], (int) remoteData[1]);
                     break;
-                case PKConstants.HANDLER_MESSAGE_JOIN_SIGNAL_CHANNEL:
-                    String[] loginSignal = (String[]) msg.obj;
-                    workThread.joinSignalChannel(loginSignal[0], loginSignal[1]);
-                    break;
-                case PKConstants.HANDLER_MESSAGE_SEND_CHANNEL_MSG:
-                    workThread.sendChannelMessage((String) msg.obj);
-                    break;
-                case PKConstants.HANDLER_MESSAGE_SEND_P2P_MSG:
-                    String[] msgs = (String[]) msg.obj;
-                    workThread.sendP2pMessage(msgs[0], msgs[1]);
-                    break;
-                case PKConstants.HANDLER_MESSAGE_LOGOUT_SIGNAL_CHANNEL:
-                    workThread.leaveSignalChannel();
-                    break;
                 default:
                     throw new RuntimeException("unknown handler event");
             }
@@ -89,7 +71,6 @@ public class WorkThread extends Thread {
     public WorkThread(WeakReference<Context> ctx) {
         this.mContext = ctx.get();
         this.mMediaEngineHandler = new MediaEngineHandler();
-        this.mSignalHandler = new SignalEngineHandler();
     }
 
     @Override
@@ -128,32 +109,12 @@ public class WorkThread extends Thread {
         mRtcEngine.setChannelProfile(Constants.CHANNEL_PROFILE_LIVE_BROADCASTING);
     }
 
-    private void ensureMessageEngine() {
-        if (mMessageTubeKit != null)
-            return;
-
-        if (!StringUtils.validate(PKConstants.SIGNALING_APP_ID))
-            throw new RuntimeException("signal app id is null");
-
-        try {
-            mMessageTubeKit = new AgoraMessageTubeKit(mContext, PKConstants.MEDIA_APP_ID);
-            mMessageTubeKit.registerCallback(mSignalHandler.callback);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
     public RtcEngine rtcEngine() {
         return mRtcEngine;
     }
 
     public MediaEngineHandler handler() {
         return mMediaEngineHandler;
-    }
-
-    public SignalEngineHandler signalHandler() {
-        return mSignalHandler;
     }
 
     public void exit() {
@@ -176,7 +137,7 @@ public class WorkThread extends Thread {
         }
 
         ensureEnineCreated();
-        ensureMessageEngine();
+
         int ret = mRtcEngine.joinChannel(null, channel, "", uid);
         Log.e(TAG, "joinChannel:" + ret);
     }
@@ -193,7 +154,7 @@ public class WorkThread extends Thread {
         }
 
         ensureEnineCreated();
-        ensureMessageEngine();
+
         mRtcEngine.setClientRole(channelProfile);
         mRtcEngine.setVideoProfile(videoProfile, true);
         mRtcEngine.enableVideo();
@@ -210,7 +171,7 @@ public class WorkThread extends Thread {
         }
 
         ensureEnineCreated();
-        ensureMessageEngine();
+
         if (start) {
             mRtcEngine.setupLocalVideo(new VideoCanvas(view, VideoCanvas.RENDER_MODE_HIDDEN, uid));
             mRtcEngine.startPreview();
@@ -229,7 +190,7 @@ public class WorkThread extends Thread {
         }
 
         ensureEnineCreated();
-        ensureMessageEngine();
+
         mRtcEngine.setupRemoteVideo(new VideoCanvas(view, VideoCanvas.RENDER_MODE_HIDDEN, uid));
     }
 
@@ -246,61 +207,4 @@ public class WorkThread extends Thread {
         }
     }
 
-    public final void joinSignalChannel(String account, String channel) {
-        if (Thread.currentThread() != this) {
-            Message envelop = new Message();
-            envelop.what = PKConstants.HANDLER_MESSAGE_JOIN_SIGNAL_CHANNEL;
-            envelop.obj = new String[]{account, channel};
-            mWorkHandler.sendMessage(envelop);
-            return;
-        }
-
-        ensureEnineCreated();
-        ensureMessageEngine();
-
-        mMessageTubeKit.joinChannel(account, channel);
-    }
-
-    public final void sendChannelMessage(String msg) {
-        if (Thread.currentThread() != this) {
-            Message envelop = new Message();
-            envelop.what = PKConstants.HANDLER_MESSAGE_SEND_CHANNEL_MSG;
-            envelop.obj = msg;
-            mWorkHandler.sendMessage(envelop);
-            return;
-        }
-
-        ensureMessageEngine();
-        ensureEnineCreated();
-        mMessageTubeKit.sendMarkedChannelMessage(msg);
-    }
-
-    public final void sendP2pMessage(String msg, String account) {
-        if (Thread.currentThread() != this) {
-            Message envelop = new Message();
-            envelop.what = PKConstants.HANDLER_MESSAGE_SEND_P2P_MSG;
-            envelop.obj = new String[]{msg, account};
-            mWorkHandler.sendMessage(envelop);
-            return;
-        }
-
-        ensureEnineCreated();
-        ensureMessageEngine();
-
-        mMessageTubeKit.sendMarkedInstantMessage(account, msg);
-    }
-
-    public final void leaveSignalChannel() {
-        if (Thread.currentThread() != this) {
-            Message envelop = new Message();
-            envelop.what = PKConstants.HANDLER_MESSAGE_LOGOUT_SIGNAL_CHANNEL;
-            mWorkHandler.sendMessage(envelop);
-            return;
-        }
-        if (mMessageTubeKit != null) {
-            mMessageTubeKit.leaveChannel();
-
-            Log.e("wbsTest-->", "leaveSignalChannel");
-        }
-    }
 }
