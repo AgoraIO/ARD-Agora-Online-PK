@@ -45,7 +45,4 @@ dependencies {
 
     all32Implementation project(':ijkplayer-armv7a')
     all64Implementation project(':ijkplayer-armv7a')
-
-    // include signal aar
-    implementation(name: 'agora-message-tube-kit-release', ext: 'aar')
 }
