@@ -39,12 +39,6 @@
             android:windowSoftInputMode="adjustNothing"
             android:screenOrientation="portrait"/>
 
-        <service
-            android:name="io.agora.pk.utils.video.MediaPlayerService"
-            android:enabled="false"
-            android:exported="false"
-            android:icon="@mipmap/ic_launcher">
-        </service>
     </application>
 
 </manifest>

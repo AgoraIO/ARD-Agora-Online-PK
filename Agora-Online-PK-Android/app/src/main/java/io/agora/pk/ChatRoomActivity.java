@@ -2,9 +2,7 @@ package io.agora.pk;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.SurfaceView;
@@ -16,28 +14,19 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import io.agora.live.LiveTranscoding;
 import io.agora.pk.engine.IMediaEngineHandler;
-import io.agora.pk.engine.ISignalEngineHandler;
-import io.agora.pk.utils.MessageUtils;
 import io.agora.pk.utils.PKConstants;
 import io.agora.pk.utils.StringUtils;
-import io.agora.pk.utils.video.IjkVideoView;
 import io.agora.rtc.Constants;
 import io.agora.rtc.IRtcEngineEventHandler;
 import io.agora.rtc.RtcEngine;
 import io.agora.rtc.video.VideoCanvas;
-import tv.danmaku.ijk.media.player.IMediaPlayer;
-import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
-public class ChatRoomActivity extends BaseActivity implements IMediaEngineHandler,
-        IMediaPlayer.OnPreparedListener, IMediaPlayer.OnCompletionListener{
+public class ChatRoomActivity extends BaseActivity implements IMediaEngineHandler {
     private int mClientRole;
 
     private FrameLayout mFLSingleView;
@@ -46,7 +35,6 @@ public class ChatRoomActivity extends BaseActivity implements IMediaEngineHandle
     private FrameLayout mFLPKViewRight;
 
     private FrameLayout mFLPKMidBoard;
-    private FrameLayout mFLPKViewClient;
 
     private Button mBtnExitPk;
 
@@ -57,7 +45,6 @@ public class ChatRoomActivity extends BaseActivity implements IMediaEngineHandle
     private List<Integer> mUserList = new ArrayList<>();
     private LiveTranscoding liveTranscoding;
 
-    private IjkVideoView mClientVideoView;
     private SurfaceView localView;
     private SurfaceView remoteView;
 
@@ -76,7 +63,6 @@ public class ChatRoomActivity extends BaseActivity implements IMediaEngineHandle
         mFLSingleView = findViewById(R.id.fl_chat_room_main_video_view);
         mFLPKViewLeft = findViewById(R.id.fl_chat_room_main_pk_board_left);
         mFLPKViewRight = findViewById(R.id.fl_chat_room_main_pk_board_right);
-        mFLPKViewClient = findViewById(R.id.fl_chat_room_main_pk_client_video);
         mFLPKMidBoard = findViewById(R.id.fl_chat_room_main_pk_board);
         mTvStartPk = findViewById(R.id.et_chat_room_main_start_pk);
         mBtnExitPk = findViewById(R.id.btn_main_pk_exit_pk);
@@ -93,11 +79,6 @@ public class ChatRoomActivity extends BaseActivity implements IMediaEngineHandle
             workThread().joinChannel(((PKApplication) getApplication()).getPkConfig().getBroadcasterAccount(), 0);
         } else if (mClientRole == Constants.CLIENT_ROLE_AUDIENCE) {
             isBroadcaster = false;
-            mClientVideoView = new IjkVideoView(this);
-            mClientVideoView.setOnCompletionListener(this);
-            mClientVideoView.setOnPreparedListener(this);
-
-            audienceCdnPlay();
         }
         changeViewToSingle();
         localView = RtcEngine.CreateRendererView(this);
@@ -111,9 +92,6 @@ public class ChatRoomActivity extends BaseActivity implements IMediaEngineHandle
 
     // finish btn
     public void onBackClicked(View v) {
-
-        stopPlay();
-
         if (isBroadcaster) {
             removePublishUrl();
             workThread().leaveChannel();
@@ -191,21 +169,9 @@ public class ChatRoomActivity extends BaseActivity implements IMediaEngineHandle
         mFLPKMidBoard.setVisibility(View.VISIBLE);
         mTvStartPk.setVisibility(View.VISIBLE);
 
-        mFLPKViewClient.setVisibility(View.INVISIBLE);
         mFLPKViewRight.setVisibility(View.VISIBLE);
         mFLPKViewLeft.setVisibility(View.VISIBLE);
         mBtnExitPk.setVisibility(View.VISIBLE);
-    }
-
-    public void changeViewToPkAudience() {
-        mFLSingleView.setVisibility(View.INVISIBLE);
-        mFLPKMidBoard.setVisibility(View.VISIBLE);
-        mTvStartPk.setVisibility(View.INVISIBLE);
-
-        mFLPKViewClient.setVisibility(View.VISIBLE);
-        mFLPKViewRight.setVisibility(View.INVISIBLE);
-        mFLPKViewLeft.setVisibility(View.INVISIBLE);
-        mBtnExitPk.setVisibility(View.INVISIBLE);
     }
 
     public void setLocalPreviewView(int uid) {
@@ -223,17 +189,6 @@ public class ChatRoomActivity extends BaseActivity implements IMediaEngineHandle
         localView.setZOrderMediaOverlay(false);
         localView.setLayoutParams(lp);
         mFLSingleView.addView(localView);
-    }
-
-    public void setClientSingleView() {
-        mClientVideoView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        if (mFLSingleView.getChildCount() > 0)
-            mFLSingleView.removeAllViews();
-
-        if (mClientVideoView.getParent() != null)
-            ((ViewGroup)(mClientVideoView.getParent())).removeAllViews();
-
-        mFLSingleView.addView(mClientVideoView);
     }
 
     public void setLocalPkLeftView(int uid) {
@@ -262,17 +217,6 @@ public class ChatRoomActivity extends BaseActivity implements IMediaEngineHandle
 
         rtcEngine().setupRemoteVideo(new VideoCanvas(remoteView, Constants.RENDER_MODE_HIDDEN, uid));
         mFLPKViewRight.addView(remoteView);
-    }
-
-    public void setClientPKView() {
-        mClientVideoView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        if (mFLPKViewClient.getChildCount() > 0)
-            mFLPKViewClient.removeAllViews();
-
-        if (mClientVideoView.getParent() != null)
-            ((ViewGroup)(mClientVideoView.getParent())).removeAllViews();
-
-        mFLPKViewClient.addView(mClientVideoView);
     }
 
     @Override
@@ -365,63 +309,4 @@ public class ChatRoomActivity extends BaseActivity implements IMediaEngineHandle
         }
     }
 
-    // --------------------------------ijk Player--------------------
-    // use ijkplayer (mClientVideoView) to play rtmp stream
-    private void startPlay(String url) {
-        IjkMediaPlayer.loadLibrariesOnce(null);
-        IjkMediaPlayer.native_profileBegin("libijkplayer.so");
-        IjkMediaPlayer ijkMediaPlayer = new IjkMediaPlayer();
-        ijkMediaPlayer.setOption(1, "analyzemaxduration", 100L);
-        ijkMediaPlayer.setOption(1, "probesize", 10240L);
-        ijkMediaPlayer.setOption(1, "flush_packets", 1L);
-        ijkMediaPlayer.setOption(4, "packet-buffering", 0L);
-        ijkMediaPlayer.setOption(4, "framedrop", 1L);
-        mClientVideoView.setVideoURI(Uri.parse(url));
-        mClientVideoView.requestFocus();
-        mClientVideoView.start();
-    }
-
-    private void stopPlay() {
-        if (mClientVideoView != null && !isBroadcaster)
-            mClientVideoView.stopPlayback();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (mClientVideoView != null && !isBroadcaster) {
-            mClientVideoView.enterBackground();
-        }
-    }
-
-    //---------------------------
-    // as audience, start play rtmp stream from CDN url
-    private void audienceCdnPlay() {
-        if (isBroadcaster) {
-            return;
-        }
-
-        if (mClientVideoView != null){
-            stopPlay();
-            startPlay(PKConstants.PUBLISH_PULL_URL + (((PKApplication) getApplication()).getPkConfig().getAudienceSignalAccount()));
-        }
-
-        if (isPKnow) {
-            changeViewToPkAudience();
-            setClientPKView();
-        } else {
-            changeViewToSingle();
-            setClientSingleView();
-        }
-    }
-
-    @Override
-    public void onPrepared(IMediaPlayer mp) {
-
-    }
-
-    @Override
-    public void onCompletion(IMediaPlayer mp) {
-        onBackClicked(null);
-    }
 }

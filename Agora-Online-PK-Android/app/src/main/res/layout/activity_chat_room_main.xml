@@ -36,16 +36,6 @@
                 android:layout_height="match_parent"/>
         </LinearLayout>
 
-
-        <FrameLayout
-            android:id="@+id/fl_chat_room_main_pk_client_video"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:orientation="horizontal"
-            android:background="@color/agora_black"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
         <ImageView
             android:scaleType="fitCenter"
             android:src="@drawable/chat_room_main_pk_support"

@@ -39,32 +39,6 @@ public class ChatRoomListActivity extends Activity {
         forwardTo(Constants.CLIENT_ROLE_BROADCASTER);
     }
 
-    public void onWatchClicked(View v) {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        View rootView = LayoutInflater.from(this).inflate(R.layout.pop_view_watch, null);
-        alertDialog.setView(rootView);
-        AlertDialog dialog = alertDialog.create();
-        if (null != dialog.getWindow())
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        dialog.show();
-
-        Button btn = rootView.findViewById(R.id.btn_start_watch);
-        final EditText et = rootView.findViewById(R.id.et_watch_channel);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!StringUtils.validate(et.getText().toString())) {
-                    Toast.makeText(ChatRoomListActivity.this, "Please input text", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                ((PKApplication) getApplication()).getPkConfig().setAudienceSignalAccount(et.getText().toString());
-                forwardTo(Constants.CLIENT_ROLE_AUDIENCE);
-            }
-        });
-
-    }
-
     private void forwardTo(int clintRole) {
         if (hasPermission) {
             Intent intent = new Intent(ChatRoomListActivity.this, ChatRoomActivity.class);

@@ -20,18 +20,6 @@
             android:textSize="14sp"
             android:layout_gravity="center"
             android:background="@drawable/main_btn_style"
-            android:text="@string/chat_room_btn_watch"
-            android:onClick="onWatchClicked"
-            android:textColor="@color/agora_white"
-            android:layout_height="match_parent" />
-
-        <Button
-            android:layout_margin="6dp"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:textSize="14sp"
-            android:layout_gravity="center"
-            android:background="@drawable/main_btn_style"
             android:onClick="onBroadcastClicked"
             android:text="@string/chat_room_btn_begin_living"
             android:textColor="@color/agora_white"
