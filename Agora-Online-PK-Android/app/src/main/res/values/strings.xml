@@ -1,13 +1,14 @@
 <resources>
     <string name="app_name" translatable="false">AgoraPKOnline</string>
 
-    <string name="main_et_hint">请输入用户名</string>
-    <string name="main_btn_login">登录</string>
+    <string name="main_channel_hint">请输入房间名</string>
 
-    <string name="chat_room_btn_watch">观看直播</string>
     <string name="chat_room_btn_begin_living">开始直播</string>
 
     <string name="chat_room_pk_logout_pk">退出PK</string>
     <string name="chat_room_pk_start">发起PK</string>
+
+    <string name="copy">复制</string>
+    <string name="already_copyed">已复制</string>
 
 </resources>

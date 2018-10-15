@@ -9,7 +9,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.agora.live.LiveTranscoding;
+import io.agora.rtc.live.LiveTranscoding;
 import io.agora.pk.engine.WorkThread;
 import io.agora.pk.utils.PKConstants;
 import io.agora.rtc.RtcEngine;

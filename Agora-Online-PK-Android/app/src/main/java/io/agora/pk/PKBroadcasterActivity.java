@@ -1,9 +1,13 @@
 package io.agora.pk;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.SurfaceView;
 import android.view.View;
@@ -17,7 +21,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.agora.live.LiveTranscoding;
+import io.agora.rtc.live.LiveTranscoding;
 import io.agora.pk.engine.IMediaEngineHandler;
 import io.agora.pk.utils.PKConstants;
 import io.agora.pk.utils.StringUtils;
@@ -26,7 +30,10 @@ import io.agora.rtc.IRtcEngineEventHandler;
 import io.agora.rtc.RtcEngine;
 import io.agora.rtc.video.VideoCanvas;
 
-public class ChatRoomActivity extends BaseActivity implements IMediaEngineHandler {
+public class PKBroadcasterActivity extends BaseActivity implements IMediaEngineHandler {
+
+    private static final String TAG = "PKBroadcaster";
+
     private int mClientRole;
 
     private FrameLayout mFLSingleView;
@@ -50,10 +57,13 @@ public class ChatRoomActivity extends BaseActivity implements IMediaEngineHandle
 
     private TextView mTvStartPk;
 
+    private Button mBtnVCopyRtmpPullUrl;
+    private TextView mTvRtmpPullUrl;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat_room_main);
+        setContentView(R.layout.activity_pk_broadcaster);
 
         mClientRole = getIntent().getIntExtra(PKConstants.USER_CLIENT_ROLE, Constants.CLIENT_ROLE_AUDIENCE);
     }
@@ -66,6 +76,16 @@ public class ChatRoomActivity extends BaseActivity implements IMediaEngineHandle
         mFLPKMidBoard = findViewById(R.id.fl_chat_room_main_pk_board);
         mTvStartPk = findViewById(R.id.et_chat_room_main_start_pk);
         mBtnExitPk = findViewById(R.id.btn_main_pk_exit_pk);
+
+        mBtnVCopyRtmpPullUrl = findViewById(R.id.btn_copy_rtmp_pull_url);
+        mBtnVCopyRtmpPullUrl.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                copyRtmpPullUrl();
+            }
+        });
+        mTvRtmpPullUrl = findViewById(R.id.tv_rtmp_pull_url);
 
        initEngine();
     }
@@ -138,7 +158,7 @@ public class ChatRoomActivity extends BaseActivity implements IMediaEngineHandle
             @Override
             public void onClick(View view) {
                 if (!StringUtils.validate(et.getText().toString())) {
-                    Toast.makeText(ChatRoomActivity.this, "please input a channel account", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PKBroadcasterActivity.this, "please input a channel account", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -224,6 +244,8 @@ public class ChatRoomActivity extends BaseActivity implements IMediaEngineHandle
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                Log.d(TAG, "onJoinChannelSuccess channel=" + channel + " uid=" + uid);
+
                 localUid = uid;
                 mUserList.add(localUid);
                 if (isPKnow) {
@@ -289,8 +311,23 @@ public class ChatRoomActivity extends BaseActivity implements IMediaEngineHandle
     }
 
     //------------------------------------------------------------------------------
+
+    private String rtmpPullUrl() {
+        return PKConstants.PUBLISH_PULL_URL + ((PKApplication) getApplication()).getPkConfig().getBroadcasterAccount();
+    }
+
+    private void copyRtmpPullUrl() {
+        ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData mClipData = ClipData.newPlainText("Label", rtmpPullUrl());
+        cm.setPrimaryClip(mClipData);
+
+        Toast.makeText(this, R.string.already_copyed, Toast.LENGTH_LONG).show();
+    }
+
     public void publishUrl() {
         rtcEngine().addPublishStreamUrl(PKConstants.PUBLISH_URL + ((PKApplication) getApplication()).getPkConfig().getBroadcasterAccount(), true);
+
+        mTvRtmpPullUrl.setText(rtmpPullUrl());
     }
 
     public void removePublishUrl() {
