@@ -1,68 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/chat_room_main_pk_bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/iv_main_log"
-        android:layout_width="108dp"
-        android:layout_height="108dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="64dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/main_log_agora" />
-
-    <ImageView
-        android:id="@+id/iv_main_log_text"
-        android:layout_width="108dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/iv_main_log"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/main_log_text_agora" />
-
-    <LinearLayout
-        android:id="@+id/ll_main_account_layout"
+    <EditText
+        android:id="@+id/et_channel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btn_main_login"
-        android:layout_marginBottom="16dp"
-        android:layout_marginLeft="42dp"
-        android:layout_marginRight="42dp"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="center"
-            android:scaleType="centerInside"
-            android:src="@drawable/main_user_icon_small" />
-
-        <EditText
-            android:id="@+id/et_main_account_name"
-            style="@style/text_edit_view_style"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/main_et_hint"
-            android:paddingLeft="16dp"
-            android:textColor="@color/agora_black"
-            android:textSize="16sp" />
-    </LinearLayout>
+        android:layout_marginTop="60dp"
+        android:gravity="center"
+        android:hint="@string/main_channel_hint"/>
 
     <Button
-        android:id="@+id/btn_main_login"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="64dp"
-        android:layout_marginLeft="36dp"
-        android:layout_marginRight="36dp"
+        android:layout_marginTop="60dp"
+        android:layout_gravity="center_horizontal"
+        android:textSize="14sp"
         android:background="@drawable/main_btn_style"
-        android:onClick="onLoginClicked"
-        android:text="@string/main_btn_login"
+        android:onClick="onBroadcastClicked"
+        android:text="@string/chat_room_btn_begin_living"
         android:textColor="@color/agora_white" />
-</RelativeLayout>
+
+</LinearLayout>

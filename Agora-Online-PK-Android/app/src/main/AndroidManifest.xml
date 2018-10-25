@@ -29,22 +29,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ChatRoomListActivity"
-            android:configChanges="screenSize|keyboardHidden|orientation"
-            android:screenOrientation="portrait" />
 
-        <activity android:name=".ChatRoomActivity"
+        <activity android:name=".PKBroadcasterActivity"
             android:configChanges="screenSize|keyboardHidden|orientation"
             android:windowSoftInputMode="adjustNothing"
             android:screenOrientation="portrait"/>
 
-        <service
-            android:name="io.agora.pk.utils.video.MediaPlayerService"
-            android:enabled="false"
-            android:exported="false"
-            android:icon="@mipmap/ic_launcher">
-        </service>
     </application>
 
 </manifest>
