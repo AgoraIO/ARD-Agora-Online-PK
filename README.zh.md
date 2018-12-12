@@ -35,27 +35,21 @@
 
 ![PK 连麦架构设计](Image/competing_hosts.png)
 
-声网已在 GitHub 提供了 Android 平台的 [实现代码](https://github.com/AgoraIO/ARD-Agora-Online-PK/tree/master/Agora-Online-PK-Android)。你也可以下载实现的 [apk 文件](https://pan.baidu.com/s/1T7Psw5KxNkSsYRPiTTB7Dg) 下载密码请联系声网客服 sales@agora.io 。
-
 ## 集成步骤
 
 ### PK 连麦方案场景实现
 
 **PK 场景需要实现以下功能：**
 
-1. 集成声网 SDK
-	* Android, 详见 [设置开发环境](https://docs.agora.io/cn/2.3.1/product/Interactive%20Broadcast/Quickstart%20Guide/broadcast_audio_android?platform=Android)
-	* iOS, 详见 [设置开发环境](https://docs.agora.io/cn/2.3.1/product/Interactive%20Broadcast/Quickstart%20Guide/broadcast_audio_ios?platform=iOS)
+1. 集成声网 SDK 实现视频直播
+	* Android, 详见 [集成客户端](https://docs.agora.io/cn/Interactive%20Broadcast/android_video?platform=Android)
+	* iOS, 详见 [集成客户端](https://docs.agora.io/cn/Interactive%20Broadcast/ios_video?platform=iOS)
 
-2. 实现视频直播
-	* Android, 详见 [实现视频直播](https://docs.agora.io/cn/2.3.1/product/Interactive%20Broadcast/Quickstart%20Guide/broadcast_video_android?platform=Android)
-	* iOS, 详见 [实现视频直播](https://docs.agora.io/cn/2.3.1/product/Interactive%20Broadcast/Quickstart%20Guide/broadcast_video_ios?platform=iOS)
+2. 实现 CDN 推流，和服务器合图
+ 	* Android, 详见 [推流到 CDN ](https://docs.agora.io/cn/Interactive%20Broadcast/push_stream_android2.0?platform=Android)
+	* iOS, 详见 [推流到 CDN ](https://docs.agora.io/cn/Interactive%20Broadcast/push_stream_ios2.0?platform=iOS)
 
-3. 实现 CDN 推流， 和服务器合图
- 	* Android, 详见 [推流到 CDN ](https://docs.agora.io/cn/2.3.1/product/Interactive%20Broadcast/Quickstart%20Guide/push_stream_android2.0?platform=Android)
-	* iOS, 详见 [推流到 CDN ](https://docs.agora.io/cn/2.3.1/product/Interactive%20Broadcast/Quickstart%20Guide/push_stream_ios2.0?platform=iOS)
-
-4. 实现第三方推流，拉流（可选）
+3. 实现第三方推流，拉流（可选）
 	* 如单主播模式需要使用第三方推流工具，需要自行集成第三方推流。
 	* 如 APP 需要实现观众模式，需要自行集成第三方拉流播放器。
 
@@ -64,17 +58,17 @@
 * 声网 PK 连麦方案采用直播模式的 Agora Video SDK。
 * 从单主播模式进入 PK 模式时，每个主播都需要退出原来的旁路推流。
 * 从单主播模式进入 PK 模式时，各位主播需要同时加入同一声网频道，可由 APP 控制实现。
-* PK 模式下，每个主播都需要设置合图（setLiveTranscoding，[Android](https://docs.agora.io/cn/2.3.1/product/Interactive%20Broadcast/API%20Reference/live_video_android?platform=Android#setlivetranscoding),  [iOS](https://docs.agora.io/cn/2.3.1/product/Interactive%20Broadcast/API%20Reference/live_video_ios?platform=iOS#livetranscoding-ios)）, 并重新添加 CDN 推流地址（addPublishStreamUrl，[Android](https://docs.agora.io/cn/2.3.1/product/Interactive%20Broadcast/API%20Reference/live_video_android?platform=Android#addpublishstreamurl),  [iOS](https://docs.agora.io/cn/2.3.1/product/Interactive%20Broadcast/API%20Reference/live_video_ios?platform=iOS#addpublishstreamurl-transcodingenabled)）
+* PK 模式下，每个主播都需要设置合图（setLiveTranscoding，[Android](https://docs.agora.io/cn/Interactive%20Broadcast/API%20Reference/java/classio_1_1agora_1_1rtc_1_1_rtc_engine.html#a3cb9804ae71819038022d7575834b88c),  [iOS](hhttps://docs.agora.io/cn/Interactive%20Broadcast/API%20Reference/oc/Classes/AgoraRtcEngineKit.html#//api/name/setLiveTranscoding:)）, 并重新添加 CDN 推流地址（addPublishStreamUrl，[Android](https://docs.agora.io/cn/Interactive%20Broadcast/API%20Reference/java/classio_1_1agora_1_1rtc_1_1_rtc_engine.html#a4445b4ca9509cc4e2966b6d308a8f08f),  [iOS](https://docs.agora.io/cn/Interactive%20Broadcast/API%20Reference/oc/Classes/AgoraRtcEngineKit.html#//api/name/addPublishStreamUrl:transcodingEnabled:)）
 * PK 模式下，设置合图（setLiveTranscoding）和添加 CDN 推流地址（addPublishStreamUrl）需要在声网频道内进行。
 * PK 模式下，双方主播的 CDN 推流地址应与普通模式时选用的 URL 地址一致确保 CDN 观众无需切换 CDN 地址。
 * PK 模式下，只要有一位主播退出声网频道，其余主播也同时退出声网频道进入单主播模式，可由 APP 控制实现。
-* 从 PK 模式进入单主播模式前，每个主播都需要移除原先的 CDN 推流地址（removePublishStreamUrl，[Android](https://docs.agora.io/cn/2.3.1/product/Interactive%20Broadcast/API%20Reference/live_video_android?platform=Android#removepublishstreamurl),  [iOS](https://docs.agora.io/cn/2.3.1/product/Interactive%20Broadcast/API%20Reference/live_video_ios?platform=iOS#removepublishstreamurl)）。
+* 从 PK 模式进入单主播模式前，每个主播都需要移除原先的 CDN 推流地址（removePublishStreamUrl，[Android](https://docs.agora.io/cn/Interactive%20Broadcast/API%20Reference/java/classio_1_1agora_1_1rtc_1_1_rtc_engine.html#a87b3f2f17bce8f4cc42b3ee6312d30d4),  [iOS](https://docs.agora.io/cn/Interactive%20Broadcast/API%20Reference/oc/Classes/AgoraRtcEngineKit.html#//api/name/removePublishStreamUrl:)）。
 * 从 PK 模式进入普通模式时，每个主播需要重新向原来的 CDN 地址推流确保 CDN 观众无需切换地址。
 
 ### 运行示例程序
 
 首先在 [Agora.io 注册](https://dashboard.agora.io/cn/signup/) 注册账号，并创建自己的测试项目，获取到 AppID。
-然后在 [Agora.io SDK](https://www.agora.io/cn/download/) 下载 视频通话 + 直播 SDK
+然后在 [Agora.io SDK](https://docs.agora.io/cn/Interactive%20Broadcast/downloads) 下载 视频通话/视频直播 SDK
 
 **iOS**
 
@@ -84,7 +78,7 @@
 	static let AppId: String = "Your App ID"
 	```
 
-2. 解压后将其中的 libs/AgoraRtcEngineKit.framework 复制到项目文件夹下。
+2. 解压视频通话/视频直播 SDK 包，将其中的 libs/AgoraRtcEngineKit.framework 复制到项目文件夹下。
 3. 最后使用 XCode 打开 Agora-Online-PK.xcodeproj，连接 iPhone／iPad 测试设备，设置有效的开发者签名后即可运行。
 
 	```
@@ -94,6 +88,16 @@
 	```
 
 **Android**
+
+1. 将 AppID 填写进 PKConstants 的 MEDIA_APP_ID以及SIGNALING_APP_ID 中
+2. 解压视频通话/视频直播 SDK 包，将其中的jar和so复制到项目对应文件夹下。
+3. 最后使用 AndroidStudio 打开项目，连接 Android 测试设备，编译并运行。
+
+	```
+	* Android Studio 2.0 +
+	* minSdkVersion 16
+	* 部分模拟器会存在功能缺失或者性能问题，所以推荐使用真机设备
+	```
 
 ### 示例程序功能
 - 开始直播：在首页输入直播频道名，点击“开始直播”按钮，进入直播房间，开始直播和 CDN 推流；
