@@ -77,7 +77,7 @@
 * 从 PK 模式进入单主播模式前，每个主播都需要移除原先的 CDN 推流地址（removePublishStreamUrl，[Android](https://docs.agora.io/cn/2.3.1/product/Interactive%20Broadcast/API%20Reference/live_video_android?platform=Android#removepublishstreamurl),  [iOS](https://docs.agora.io/cn/2.3.1/product/Interactive%20Broadcast/API%20Reference/live_video_ios?platform=iOS#removepublishstreamurl)）。
 * 从 PK 模式进入普通模式时，每个主播需要重新向原来的 CDN 地址推流确保 CDN 观众无需切换地址。
 
-###运行示例程序
+### 运行示例程序
 
 首先在 [Agora.io 注册](https://dashboard.agora.io/cn/signup/) 注册账号，并创建自己的测试项目，获取到 AppID。
 然后在 [Agora.io SDK](https://www.agora.io/cn/download/) 下载 视频通话 + 直播 SDK
@@ -101,7 +101,7 @@
 
 **Android**
 
-###示例程序功能
+### 示例程序功能
 - 开始直播：在首页输入直播频道名，点击“开始直播”按钮，进入直播房间，开始直播和 CDN 推流；
 - 发起PK：在房间内点击“PK”按钮，并输入“PK房间名”进入PK（需要两个主播同时输入相同的“PK房间名”以进入同一房间）；
 - 退出PK：点击“退出PK”按钮，退出PK模式，返回单主播模式；
