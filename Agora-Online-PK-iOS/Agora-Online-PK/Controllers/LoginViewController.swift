@@ -11,17 +11,15 @@ import UIKit
 class LoginViewController: UIViewController {
 
     /**-----------------------------------------------------------------------------
-     * This view is uesd to set the account
+     * This view is uesd to set the channel
      *
-     * In this app we use the accout to identify
+     * In this app we use the channel to identify
      *      - Agora media channel name
-     *      - Agora signal account
-     *      - Agora signal channel name
      *      - Agora RTMP Push URL (Constants.pushUrl + account)
      * -----------------------------------------------------------------------------
      */
-    @IBOutlet weak var loginButton: UIButton!
-    @IBOutlet weak var accountTextField: UITextField!
+    @IBOutlet weak var joinButton: UIButton!
+    @IBOutlet weak var channelTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,16 +34,23 @@ class LoginViewController: UIViewController {
         view.endEditing(true)
     }
     
-    @IBAction func doLoginButtonPressed(_ sender: UIButton) {
-        guard let account = accountTextField.text else {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let channelName = sender as? String else {
             return
         }
-        if !check(String: account) {
-            return
-        }
-        UserDefaults.standard.set(account, forKey: "myAccount")
         
-        performSegue(withIdentifier: "toMain", sender: self)
+        let roomVC = segue.destination as! RoomViewController
+        roomVC.mediaRoomName = channelName
+    }
+    
+    @IBAction func doJoinButtonPressed(_ sender: UIButton) {
+        guard let channelName = channelTextField.text else {
+            return
+        }
+        if !check(String: channelName) {
+            return
+        }
+        performSegue(withIdentifier: "toRoom", sender: channelName)
     }
     
     func check(String: String) -> Bool {
@@ -53,14 +58,7 @@ class LoginViewController: UIViewController {
             AlertUtil.showAlert(message: "The account is empty !")
             return false
         }
-        if String.count > 128 {
-            AlertUtil.showAlert(message: "The accout is longer than 128 !")
-            return false
-        }
-        if String.contains(" ") {
-            AlertUtil.showAlert(message: "The accout contains space !")
-            return false
-        }
+
         return true
     }
 }
@@ -78,7 +76,7 @@ private extension LoginViewController {
             let keyBoardBounds = keyBoardBoundsValue.cgRectValue
             let duration = durationValue.doubleValue
             var deltaY = isIPhoneX ? keyBoardBounds.size.height + 34 : keyBoardBounds.size.height
-            deltaY -= ScreenHeight - (self?.loginButton.frame.maxY)! - 10
+            deltaY -= ScreenHeight - (self?.joinButton.frame.maxY)! - 10
             
             if duration > 0 {
                 var optionsInt: UInt = 0
