@@ -39,12 +39,6 @@
 
 ## 集成步骤
 
-### 集成 SDK
-
-* Android, 详见 [设置开发环境](https://docs.agora.io/cn/2.3.1/product/Interactive%20Broadcast/Quickstart%20Guide/broadcast_audio_android?platform=Android)
-* iOS, 详见 [设置开发环境](https://docs.agora.io/cn/2.3.1/product/Interactive%20Broadcast/Quickstart%20Guide/broadcast_audio_ios?platform=iOS)
-
-
 ### PK 连麦方案场景实现
 
 **PK 场景需要实现以下功能：**
