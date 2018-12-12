@@ -19,10 +19,6 @@ let pkViewWidth = ScreenWidth / 2.0
 /// PK view height
 let pkViewHeight = ScreenWidth / 9.0 * 8
 
-let isIPhoneX = ScreenHeight == 812 ? true : false
-
-let userProfileLists = [#imageLiteral(resourceName: "profile_01"),#imageLiteral(resourceName: "profile_02"),#imageLiteral(resourceName: "profile_03"),#imageLiteral(resourceName: "profile_04"),#imageLiteral(resourceName: "profile_05"),#imageLiteral(resourceName: "profile_06"),#imageLiteral(resourceName: "profile_07"),#imageLiteral(resourceName: "profile_08")]
-
 /// RTMP Push URL
 let pushUrl = "rtmp://vid-218.push.chinanetcenter.broadcastapp.agora.io/live/"
 

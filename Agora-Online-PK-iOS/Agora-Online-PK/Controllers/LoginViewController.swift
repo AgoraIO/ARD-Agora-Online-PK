@@ -23,7 +23,6 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addKeyboardObserver()
     }
 
     override func didReceiveMemoryWarning() {
@@ -60,68 +59,5 @@ class LoginViewController: UIViewController {
         }
 
         return true
-    }
-}
-
-private extension LoginViewController {
-    func addKeyboardObserver() {
-        // Add Keyboard Observer
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIKeyboardWillShow, object: nil, queue: nil) { [weak self] notify in
-            guard let strongSelf = self, let userInfo = (notify as NSNotification).userInfo,
-                let keyBoardBoundsValue = userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue,
-                let durationValue = userInfo[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber else {
-                    return
-            }
-            
-            let keyBoardBounds = keyBoardBoundsValue.cgRectValue
-            let duration = durationValue.doubleValue
-            var deltaY = isIPhoneX ? keyBoardBounds.size.height + 34 : keyBoardBounds.size.height
-            deltaY -= ScreenHeight - (self?.joinButton.frame.maxY)! - 10
-            
-            if duration > 0 {
-                var optionsInt: UInt = 0
-                if let optionsValue = userInfo[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber {
-                    optionsInt = optionsValue.uintValue
-                }
-                let options = UIViewAnimationOptions(rawValue: optionsInt)
-                
-                UIView.animate(withDuration: duration, delay: 0, options: options, animations: {
-                    strongSelf.view.frame = CGRect(x: 0, y: -deltaY, width: ScreenWidth, height: ScreenHeight)
-                    strongSelf.view?.layoutIfNeeded()
-                }, completion: nil)
-                
-            } else {
-                strongSelf.view.frame = CGRect(x: 0, y: -deltaY, width: ScreenWidth, height: ScreenHeight)
-            }
-        }
-        
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIKeyboardWillHide, object: nil, queue: nil) { [weak self] notify in
-            guard let strongSelf = self else {
-                return
-            }
-            
-            let duration: Double
-            if let userInfo = (notify as NSNotification).userInfo, let durationValue = userInfo[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber {
-                duration = durationValue.doubleValue
-            } else {
-                duration = 0
-            }
-            
-            if duration > 0 {
-                var optionsInt: UInt = 0
-                if let userInfo = (notify as NSNotification).userInfo, let optionsValue = userInfo[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber {
-                    optionsInt = optionsValue.uintValue
-                }
-                let options = UIViewAnimationOptions(rawValue: optionsInt)
-                
-                UIView.animate(withDuration: duration, delay: 0, options: options, animations: {
-                    strongSelf.view.frame = CGRect(x: 0, y: 0, width: ScreenWidth, height: ScreenHeight)
-                    strongSelf.view?.layoutIfNeeded()
-                }, completion: nil)
-                
-            } else {
-                strongSelf.view.frame = CGRect(x: 0, y: 0, width: ScreenWidth, height: ScreenHeight)
-            }
-        }
     }
 }

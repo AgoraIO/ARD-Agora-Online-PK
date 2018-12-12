@@ -28,14 +28,8 @@ class RoomViewController: UIViewController {
     @IBOutlet weak var leaveButton: UIButton!
     @IBOutlet weak var pkButton: UIButton!
     @IBOutlet weak var endPkButton: UIButton!
-    @IBOutlet weak var watcherCountLabel: UILabel!
-    @IBOutlet weak var userProfileImageView: UIImageView!
     
     @IBOutlet weak var hostContainView: UIView!
-    
-    @IBOutlet weak var pkBarContainView: UIView!
-    @IBOutlet weak var myPkBar: UIView!
-    @IBOutlet weak var remotePkBar: UIView!
     
     @IBOutlet weak var urlContainerView: UIView!
     @IBOutlet weak var pullUrlLabel: UILabel!
@@ -103,47 +97,12 @@ class RoomViewController: UIViewController {
         
         urlContainerView.layer.cornerRadius = 4
         urlContainerView.layer.masksToBounds = true
-        
-        userProfileImageView.image = userProfileLists[Int(arc4random() % UInt32(userProfileLists.count))]
-        watcherCountLabel.text = String(Int(arc4random() % 20000))
-        
-        let maskPath = UIBezierPath(roundedRect: myPkBar.bounds, byRoundingCorners: [.topLeft,.bottomLeft], cornerRadii: CGSize(width: 5, height: 5))
-        let maskLayer = CAShapeLayer()
-        maskLayer.frame = myPkBar.bounds
-        maskLayer.path = maskPath.cgPath
-        myPkBar.layer.mask = maskLayer
-        myPkBar.transform = CGAffineTransform(translationX: -ScreenWidth / 2, y: 0)
-        
-        let remotMaskPath = UIBezierPath(roundedRect: remotePkBar.bounds, byRoundingCorners: [.bottomRight,.topRight], cornerRadii: CGSize(width: 5, height: 5))
-        let remoteMaskLayer = CAShapeLayer()
-        remoteMaskLayer.frame = remotePkBar.bounds
-        remoteMaskLayer.path = remotMaskPath.cgPath
-        remotePkBar.layer.mask = remoteMaskLayer
-        remotePkBar.transform = CGAffineTransform(translationX: ScreenWidth / 2, y: 0)
     }
     
     func updateViewWithStatus(isPk: Bool) {
         // update view with status
         self.pkButton.isHidden = isPk
         self.endPkButton.isHidden = !isPk
-        self.pkBarAnimate(withStatus: isPk)
-    }
-    
-    func pkBarAnimate(withStatus isPk: Bool) {
-        // animate when the pk bar showing or hiding
-        if isPk {
-            UIView.animate(withDuration: 0.2) {
-                self.myPkBar.transform = CGAffineTransform.identity
-                self.remotePkBar.transform = CGAffineTransform.identity
-                self.pkBarContainView.isHidden = false
-            }
-        } else {
-            UIView.animate(withDuration: 0.2) {
-                self.pkBarContainView.isHidden = true
-                self.myPkBar.transform = CGAffineTransform(translationX: -ScreenWidth / 2, y: 0)
-                self.remotePkBar.transform = CGAffineTransform(translationX: ScreenWidth / 2, y: 0)
-            }
-        }
     }
     
     @IBAction func doLeaveButtonPressed(_ sender: UIButton) {
