@@ -8,21 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		0F1866EE20C8EA7D0062CB18 /* VideoSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1866ED20C8EA7D0062CB18 /* VideoSession.swift */; };
-		0F1866FA20CE7A9B0062CB18 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F1866F920CE7A9A0062CB18 /* libstdc++.tbd */; };
-		0F1866FC20CE7AAF0062CB18 /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F1866FB20CE7AAE0062CB18 /* libbz2.tbd */; };
-		0F1866FE20CE7AB80062CB18 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F1866FD20CE7AB80062CB18 /* libz.tbd */; };
-		0F18673220CE86200062CB18 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F18673120CE86200062CB18 /* OpenGLES.framework */; };
-		0F18675A20CF6C380062CB18 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F18675920CF6C380062CB18 /* QuartzCore.framework */; };
-		0F18675C20CF6C4F0062CB18 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F18675B20CF6C4E0062CB18 /* CoreGraphics.framework */; };
-		0F18675F20CF6CDA0062CB18 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F18675E20CF6CD90062CB18 /* MediaPlayer.framework */; };
-		0F18676120CF6CE20062CB18 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F18676020CF6CE20062CB18 /* MobileCoreServices.framework */; };
 		0F1F82D420CFD5F500A500D3 /* CommonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1F82D320CFD5F400A500D3 /* CommonExtensions.swift */; };
 		0F8F038020C52F3C00E0F395 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8F037F20C52F3C00E0F395 /* LoginViewController.swift */; };
 		0F8F038320C52F9A00E0F395 /* KeyCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8F038220C52F9A00E0F395 /* KeyCenter.swift */; };
 		0F8F038520C5306F00E0F395 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8F038420C5306F00E0F395 /* Constants.swift */; };
 		0F8F039020C543BF00E0F395 /* AlertUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8F038F20C543BE00E0F395 /* AlertUtil.swift */; };
-		0F8F039420C549E400E0F395 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8F039320C549E400E0F395 /* UserCell.swift */; };
-		0F8F039620C54AB500E0F395 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8F039520C54AB500E0F395 /* MainViewController.swift */; };
 		0F8F039820C63A6200E0F395 /* RoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8F039720C63A6200E0F395 /* RoomViewController.swift */; };
 		0F8F039A20C63B6900E0F395 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F8F039920C63B6900E0F395 /* Accelerate.framework */; };
 		0F8F039C20C63BAE00E0F395 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F8F039B20C63BAE00E0F395 /* VideoToolbox.framework */; };
@@ -34,12 +24,9 @@
 		0F8F03A820C63BF600E0F395 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F8F03A720C63BF600E0F395 /* CoreMedia.framework */; };
 		0F8F03AC20C63C1100E0F395 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F8F03AB20C63C1100E0F395 /* SystemConfiguration.framework */; };
 		0F8F03AE20C63C1D00E0F395 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F8F03AD20C63C1D00E0F395 /* libresolv.tbd */; };
-		0F8F03B420C6416D00E0F395 /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8F03B320C6416D00E0F395 /* ChatCell.swift */; };
 		0F8F03B620C67ABD00E0F395 /* PopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8F03B520C67ABD00E0F395 /* PopView.swift */; };
 		0F8F03B820C67E8C00E0F395 /* PopView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F8F03B720C67E8C00E0F395 /* PopView.xib */; };
 		A730EFC32101CC47003174AD /* AgoraRtcEngineKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A730EFC02101CC47003174AD /* AgoraRtcEngineKit.framework */; };
-		A730EFC42101CC47003174AD /* AgoraMessageTubeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A730EFC12101CC47003174AD /* AgoraMessageTubeKit.framework */; };
-		A730EFC52101CC47003174AD /* IJKMediaFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A730EFC22101CC47003174AD /* IJKMediaFramework.framework */; };
 		A7B5417D20BF9C3F0023FE2E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B5417C20BF9C3F0023FE2E /* AppDelegate.swift */; };
 		A7B5418220BF9C3F0023FE2E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7B5418020BF9C3F0023FE2E /* Main.storyboard */; };
 		A7B5418420BF9C400023FE2E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7B5418320BF9C400023FE2E /* Assets.xcassets */; };
@@ -62,8 +49,6 @@
 		0F8F038220C52F9A00E0F395 /* KeyCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyCenter.swift; sourceTree = "<group>"; };
 		0F8F038420C5306F00E0F395 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0F8F038F20C543BE00E0F395 /* AlertUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertUtil.swift; sourceTree = "<group>"; };
-		0F8F039320C549E400E0F395 /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
-		0F8F039520C54AB500E0F395 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		0F8F039720C63A6200E0F395 /* RoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomViewController.swift; sourceTree = "<group>"; };
 		0F8F039920C63B6900E0F395 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		0F8F039B20C63BAE00E0F395 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
@@ -76,19 +61,15 @@
 		0F8F03A920C63BFF00E0F395 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		0F8F03AB20C63C1100E0F395 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		0F8F03AD20C63C1D00E0F395 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
-		0F8F03B320C6416D00E0F395 /* ChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
 		0F8F03B520C67ABD00E0F395 /* PopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopView.swift; sourceTree = "<group>"; };
 		0F8F03B720C67E8C00E0F395 /* PopView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PopView.xib; sourceTree = "<group>"; };
 		A730EFC02101CC47003174AD /* AgoraRtcEngineKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AgoraRtcEngineKit.framework; path = "Agora-Online-PK/AgoraRtcEngineKit.framework"; sourceTree = "<group>"; };
-		A730EFC12101CC47003174AD /* AgoraMessageTubeKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AgoraMessageTubeKit.framework; path = "Agora-Online-PK/AgoraMessageTubeKit.framework"; sourceTree = "<group>"; };
-		A730EFC22101CC47003174AD /* IJKMediaFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IJKMediaFramework.framework; path = "Agora-Online-PK/IJKMediaFramework.framework"; sourceTree = "<group>"; };
 		A7B5417920BF9C3F0023FE2E /* Agora-Online-PK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Agora-Online-PK.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7B5417C20BF9C3F0023FE2E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A7B5418120BF9C3F0023FE2E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A7B5418320BF9C400023FE2E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A7B5418620BF9C400023FE2E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A7B5418820BF9C400023FE2E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A7B5419820BF9CCB0023FE2E /* Agora-Online-PK-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Agora-Online-PK-Bridging-Header.h"; sourceTree = "<group>"; };
 		A7B541A220BF9ED10023FE2E /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -98,16 +79,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A730EFC32101CC47003174AD /* AgoraRtcEngineKit.framework in Frameworks */,
-				A730EFC42101CC47003174AD /* AgoraMessageTubeKit.framework in Frameworks */,
-				A730EFC52101CC47003174AD /* IJKMediaFramework.framework in Frameworks */,
-				0F18676120CF6CE20062CB18 /* MobileCoreServices.framework in Frameworks */,
-				0F18675F20CF6CDA0062CB18 /* MediaPlayer.framework in Frameworks */,
-				0F18675C20CF6C4F0062CB18 /* CoreGraphics.framework in Frameworks */,
-				0F18675A20CF6C380062CB18 /* QuartzCore.framework in Frameworks */,
-				0F18673220CE86200062CB18 /* OpenGLES.framework in Frameworks */,
-				0F1866FE20CE7AB80062CB18 /* libz.tbd in Frameworks */,
-				0F1866FC20CE7AAF0062CB18 /* libbz2.tbd in Frameworks */,
-				0F1866FA20CE7A9B0062CB18 /* libstdc++.tbd in Frameworks */,
 				0F8F03AE20C63C1D00E0F395 /* libresolv.tbd in Frameworks */,
 				0F8F03AC20C63C1100E0F395 /* SystemConfiguration.framework in Frameworks */,
 				0F8F03A820C63BF600E0F395 /* CoreMedia.framework in Frameworks */,
@@ -129,7 +100,6 @@
 			isa = PBXGroup;
 			children = (
 				0F8F037F20C52F3C00E0F395 /* LoginViewController.swift */,
-				0F8F039520C54AB500E0F395 /* MainViewController.swift */,
 				0F8F039720C63A6200E0F395 /* RoomViewController.swift */,
 			);
 			path = Controllers;
@@ -157,8 +127,6 @@
 			isa = PBXGroup;
 			children = (
 				0F1866ED20C8EA7D0062CB18 /* VideoSession.swift */,
-				0F8F039320C549E400E0F395 /* UserCell.swift */,
-				0F8F03B320C6416D00E0F395 /* ChatCell.swift */,
 				0F8F03B520C67ABD00E0F395 /* PopView.swift */,
 				0F8F03B720C67E8C00E0F395 /* PopView.xib */,
 			);
@@ -185,16 +153,15 @@
 		A7B5417B20BF9C3F0023FE2E /* Agora-Online-PK */ = {
 			isa = PBXGroup;
 			children = (
-				0F8F038620C5307500E0F395 /* Contants */,
 				0F8F038120C52F4800E0F395 /* Controllers */,
 				0F8F039220C549B100E0F395 /* Views */,
+				0F8F038620C5307500E0F395 /* Contants */,
 				0F8F039120C5445C00E0F395 /* Utils */,
 				A7B5417C20BF9C3F0023FE2E /* AppDelegate.swift */,
 				A7B5418020BF9C3F0023FE2E /* Main.storyboard */,
 				A7B5418320BF9C400023FE2E /* Assets.xcassets */,
 				A7B5418520BF9C400023FE2E /* LaunchScreen.storyboard */,
 				A7B5418820BF9C400023FE2E /* Info.plist */,
-				A7B5419820BF9CCB0023FE2E /* Agora-Online-PK-Bridging-Header.h */,
 			);
 			path = "Agora-Online-PK";
 			sourceTree = "<group>";
@@ -202,9 +169,7 @@
 		A7B5419E20BF9EC90023FE2E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A730EFC12101CC47003174AD /* AgoraMessageTubeKit.framework */,
 				A730EFC02101CC47003174AD /* AgoraRtcEngineKit.framework */,
-				A730EFC22101CC47003174AD /* IJKMediaFramework.framework */,
 				0F18676020CF6CE20062CB18 /* MobileCoreServices.framework */,
 				0F18675E20CF6CD90062CB18 /* MediaPlayer.framework */,
 				0F18675B20CF6C4E0062CB18 /* CoreGraphics.framework */,
@@ -304,11 +269,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F8F03B620C67ABD00E0F395 /* PopView.swift in Sources */,
-				0F8F039620C54AB500E0F395 /* MainViewController.swift in Sources */,
 				0F8F038020C52F3C00E0F395 /* LoginViewController.swift in Sources */,
-				0F8F03B420C6416D00E0F395 /* ChatCell.swift in Sources */,
 				0F8F038320C52F9A00E0F395 /* KeyCenter.swift in Sources */,
-				0F8F039420C549E400E0F395 /* UserCell.swift in Sources */,
 				A7B5417D20BF9C3F0023FE2E /* AppDelegate.swift in Sources */,
 				0F8F039020C543BF00E0F395 /* AlertUtil.swift in Sources */,
 				0F8F038520C5306F00E0F395 /* Constants.swift in Sources */,
@@ -467,14 +429,14 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "Agora-Online-PK/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.agora.Agora-Online-PK";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "28d072e1-f550-49ef-a601-6038e4fddc51";
 				PROVISIONING_PROFILE_SPECIFIER = AgoraIODev2018;
-				SWIFT_OBJC_BRIDGING_HEADER = "Agora-Online-PK/Agora-Online-PK-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -495,14 +457,14 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "Agora-Online-PK/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.agora.Agora-Online-PK";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "28d072e1-f550-49ef-a601-6038e4fddc51";
 				PROVISIONING_PROFILE_SPECIFIER = AgoraIODev2018;
-				SWIFT_OBJC_BRIDGING_HEADER = "Agora-Online-PK/Agora-Online-PK-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
