@@ -137,6 +137,7 @@ public class PKBroadcasterActivity extends BaseActivity implements IMediaEngineH
         ((PKApplication) getApplication()).getPkConfig().setPkMediaAccount("");
 
         mUserList.clear();
+        removePublishUrl();
         workThread().leaveChannel();
         workThread().joinChannel(((PKApplication) getApplication()).getPkConfig().getBroadcasterAccount(), 0);
         changeViewToSingle();
@@ -164,6 +165,7 @@ public class PKBroadcasterActivity extends BaseActivity implements IMediaEngineH
 
                 isPKnow = true;
                 ((PKApplication) getApplication()).getPkConfig().setPkMediaAccount(et.getText().toString());
+                removePublishUrl();
                 workThread().leaveChannel();
                 mUserList.clear();
                 workThread().joinChannel(((PKApplication) getApplication()).getPkConfig().getPkMediaAccount(), 0);
