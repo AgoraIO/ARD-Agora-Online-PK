@@ -39,7 +39,7 @@
 
 ## API 列表
 示例 App 的 API 流程如下图所示。
-![PK 连麦架构设计](Image/API list.png)
+![PK 连麦架构设计](Image/API_list.png)
 
 Agora SDK 关键 API 列表：
 

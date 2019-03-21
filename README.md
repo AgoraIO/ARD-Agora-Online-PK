@@ -24,7 +24,7 @@ You can find the Agora [implementation code](https://github.com/AgoraIO/ARD-Agor
 
 # **API methods**
 
-![PK 连麦架构设计](Image/API list_EN.png)
+![PK 连麦架构设计](Image/API_list_EN.png)
 
 The API methods related to the Agora Online PK：
 
