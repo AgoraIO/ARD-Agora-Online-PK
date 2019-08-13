@@ -47,7 +47,7 @@ public class MyEngineEventHandler {
 
             Iterator<AGEventHandler> it = handlers.values().iterator();
             while (it.hasNext()) {
-                this.onJoinChannelSuccess(channel, uid, elapsed);
+                it.next().onJoinChannelSuccess(channel, uid, elapsed);
             }
         }
 
