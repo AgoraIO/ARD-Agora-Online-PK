@@ -306,6 +306,7 @@ extension RoomViewController: PopViewDelegate {
         if !check(String: pkRoomName) {
             return
         }
+        count = 0;
         self.pkRoomeName = pkRoomName
         self.leaveAgoraChannel()
         popView.removeFromSuperview()
